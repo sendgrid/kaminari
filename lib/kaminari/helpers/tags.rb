@@ -28,7 +28,11 @@ module Kaminari
       end
 
       def page_url_for(page)
-        @template.url_for params_for(page).merge(:only_path => true)
+        if @options[:path].nil?
+          @template.url_for params_for(page).merge(:only_path => true)
+        else
+          "#{@options[:path]}?#{@param_name}=#{page}"
+        end
       end
 
       private
